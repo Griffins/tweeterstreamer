@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_hbc-twitter4j" default="compile.module.hbc-twitter4j">
+  <dirname property="module.hbc-twitter4j.basedir" file="${ant.file.module_hbc-twitter4j}"/>
+  
+  <property name="module.jdk.home.hbc-twitter4j" value="${jdk.home.1.7}"/>
+  <property name="module.jdk.bin.hbc-twitter4j" value="${jdk.bin.1.7}"/>
+  <property name="module.jdk.classpath.hbc-twitter4j" value="jdk.classpath.1.7"/>
+  
+  <property name="compiler.args.hbc-twitter4j" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="hbc-twitter4j.output.dir" value="${module.hbc-twitter4j.basedir}/target/classes"/>
+  <property name="hbc-twitter4j.testoutput.dir" value="${module.hbc-twitter4j.basedir}/target/test-classes"/>
+  
+  <path id="hbc-twitter4j.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hbc-twitter4j.module.production.classpath">
+    <path refid="${module.jdk.classpath.hbc-twitter4j}"/>
+    <pathelement location="${hbc-core.output.dir}"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+  </path>
+  
+  <path id="hbc-twitter4j.runtime.production.module.classpath">
+    <pathelement location="${hbc-twitter4j.output.dir}"/>
+    <path refid="hbc-core.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+  </path>
+  
+  <path id="hbc-twitter4j.module.classpath">
+    <path refid="${module.jdk.classpath.hbc-twitter4j}"/>
+    <pathelement location="${hbc-twitter4j.output.dir}"/>
+    <pathelement location="${hbc-core.testoutput.dir}"/>
+    <pathelement location="${hbc-core.output.dir}"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-all:1.8.5.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.1.classpath"/>
+  </path>
+  
+  <path id="hbc-twitter4j.runtime.module.classpath">
+    <pathelement location="${hbc-twitter4j.testoutput.dir}"/>
+    <pathelement location="${hbc-twitter4j.output.dir}"/>
+    <path refid="hbc-core.runtime.module.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.6.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-all:1.8.5.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.hbc-twitter4j">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hbc-twitter4j">
+    <patternset refid="excluded.from.module.hbc-twitter4j"/>
+  </patternset>
+  
+  <path id="hbc-twitter4j.module.sourcepath">
+    <dirset dir="${module.hbc-twitter4j.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  <path id="hbc-twitter4j.module.test.sourcepath">
+    <dirset dir="${module.hbc-twitter4j.basedir}">
+      <include name="src/test/java"/>
+      <include name="src/test/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hbc-twitter4j" depends="compile.module.hbc-twitter4j.production,compile.module.hbc-twitter4j.tests" description="Compile module hbc-twitter4j"/>
+  
+  <target name="compile.module.hbc-twitter4j.production" depends="register.custom.compilers,compile.module.hbc-core" description="Compile module hbc-twitter4j; production classes">
+    <mkdir dir="${hbc-twitter4j.output.dir}"/>
+    <javac2 destdir="${hbc-twitter4j.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hbc-twitter4j}/javac">
+      <compilerarg line="${compiler.args.hbc-twitter4j}"/>
+      <bootclasspath refid="hbc-twitter4j.module.bootclasspath"/>
+      <classpath refid="hbc-twitter4j.module.production.classpath"/>
+      <src refid="hbc-twitter4j.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hbc-twitter4j"/>
+    </javac2>
+    
+    <copy todir="${hbc-twitter4j.output.dir}">
+      <fileset dir="${module.hbc-twitter4j.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hbc-twitter4j.tests" depends="register.custom.compilers,compile.module.hbc-twitter4j.production" description="compile module hbc-twitter4j; test classes" unless="skip.tests">
+    <mkdir dir="${hbc-twitter4j.testoutput.dir}"/>
+    <javac2 destdir="${hbc-twitter4j.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hbc-twitter4j}/javac">
+      <compilerarg line="${compiler.args.hbc-twitter4j}"/>
+      <bootclasspath refid="hbc-twitter4j.module.bootclasspath"/>
+      <classpath refid="hbc-twitter4j.module.classpath"/>
+      <src refid="hbc-twitter4j.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hbc-twitter4j"/>
+    </javac2>
+    
+    <copy todir="${hbc-twitter4j.testoutput.dir}">
+      <fileset dir="${module.hbc-twitter4j.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.hbc-twitter4j.basedir}/src/test/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.hbc-twitter4j" description="cleanup module">
+    <delete dir="${hbc-twitter4j.output.dir}"/>
+    <delete dir="${hbc-twitter4j.testoutput.dir}"/>
+  </target>
+</project>

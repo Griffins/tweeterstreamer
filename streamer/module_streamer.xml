@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_streamer" default="compile.module.streamer">
+  <dirname property="module.streamer.basedir" file="${ant.file.module_streamer}"/>
+  
+  <property name="module.jdk.home.streamer" value="${jdk.home.1.7}"/>
+  <property name="module.jdk.bin.streamer" value="${jdk.bin.1.7}"/>
+  <property name="module.jdk.classpath.streamer" value="jdk.classpath.1.7"/>
+  
+  <property name="compiler.args.streamer" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="streamer.output.dir" value="${module.streamer.basedir}/target/classes"/>
+  <property name="streamer.testoutput.dir" value="${module.streamer.basedir}/target/test-classes"/>
+  
+  <path id="streamer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="streamer.module.production.classpath">
+    <path refid="${module.jdk.classpath.streamer}"/>
+    <pathelement location="${hbc-twitter4j.output.dir}"/>
+    <pathelement location="${hbc-core.output.dir}"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.2.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.2.classpath"/>
+  </path>
+  
+  <path id="streamer.runtime.production.module.classpath">
+    <pathelement location="${streamer.output.dir}"/>
+    <path refid="hbc-twitter4j.runtime.production.module.classpath"/>
+    <path refid="hbc-core.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.2.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.2.classpath"/>
+  </path>
+  
+  <path id="streamer.module.classpath">
+    <path refid="${module.jdk.classpath.streamer}"/>
+    <pathelement location="${streamer.output.dir}"/>
+    <pathelement location="${hbc-twitter4j.testoutput.dir}"/>
+    <pathelement location="${hbc-twitter4j.output.dir}"/>
+    <pathelement location="${hbc-core.testoutput.dir}"/>
+    <pathelement location="${hbc-core.output.dir}"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.2.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.2.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-all:1.8.5.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.1.classpath"/>
+  </path>
+  
+  <path id="streamer.runtime.module.classpath">
+    <pathelement location="${streamer.testoutput.dir}"/>
+    <pathelement location="${streamer.output.dir}"/>
+    <path refid="hbc-twitter4j.runtime.module.classpath"/>
+    <path refid="hbc-core.runtime.module.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.2.5.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.2.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.6.classpath"/>
+    <path refid="library.maven:_com.twitter:joauth:6.0.2.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:14.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-core:4.0.1.classpath"/>
+    <path refid="library.maven:_org.twitter4j:twitter4j-stream:4.0.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.2.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.2.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-all:1.8.5.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.streamer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.streamer">
+    <patternset refid="excluded.from.module.streamer"/>
+  </patternset>
+  
+  <path id="streamer.module.sourcepath">
+    <dirset dir="${module.streamer.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.streamer" depends="compile.module.streamer.production,compile.module.streamer.tests" description="Compile module streamer"/>
+  
+  <target name="compile.module.streamer.production" depends="register.custom.compilers,compile.module.hbc-twitter4j,compile.module.hbc-core" description="Compile module streamer; production classes">
+    <mkdir dir="${streamer.output.dir}"/>
+    <javac2 destdir="${streamer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.streamer}/javac">
+      <compilerarg line="${compiler.args.streamer}"/>
+      <bootclasspath refid="streamer.module.bootclasspath"/>
+      <classpath refid="streamer.module.production.classpath"/>
+      <src refid="streamer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.streamer"/>
+    </javac2>
+    
+    <copy todir="${streamer.output.dir}">
+      <fileset dir="${module.streamer.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.streamer.tests" depends="register.custom.compilers,compile.module.streamer.production" description="compile module streamer; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.streamer" description="cleanup module">
+    <delete dir="${streamer.output.dir}"/>
+    <delete dir="${streamer.testoutput.dir}"/>
+  </target>
+</project>
