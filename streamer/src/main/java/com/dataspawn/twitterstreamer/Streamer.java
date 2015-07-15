@@ -74,7 +74,7 @@ public class Streamer {
                     try {
                         JSONObject tweet = new JSONObject(msg);
                         mStore.add(tweet.toString(4));
-                        System.out.println(tweet.getString("text"));
+                      //  System.out.println(tweet.getString("text"));
                     } catch (IOException e) {
                         System.out.println("Tweet Store failed: " + e.getMessage());
                         return false;
