@@ -4,6 +4,7 @@ package com.dataspawn.twitterstreamer;
  * Created by griffins on 6/20/15.
  */
 
+import com.mongodb.ServerAddress;
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
 
@@ -66,7 +67,11 @@ public class RequestProcessor {
         };
 
         try {
-            Store store = new FileStore("/home/griffins/apps/spark/tweets2.txt");
+            //Store store = new FileStore("/home/griffins/apps/spark/tweets2.txt");
+            ArrayList<ServerAddress> servers = new ArrayList<ServerAddress>();
+            servers.add(new ServerAddress("localhost", 27017));
+
+            Store store = new MongoStore(servers);
             Streamer.init(Settings.getConsumeKey(), Settings.getConsumerSecret(), Settings.getToken(), Settings.getSecret(), store);
         } catch (Exception e) {
             e.printStackTrace();
