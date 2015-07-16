@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_streamer" default="compile.module.streamer">
+  <dirname property="module.streamer.basedir" file="${ant.file.module_streamer}"/>
+  
+  <property name="module.jdk.home.streamer" value="${jdk.home.1.7}"/>
+  <property name="module.jdk.bin.streamer" value="${jdk.bin.1.7}"/>
+  <property name="module.jdk.classpath.streamer" value="jdk.classpath.1.7"/>
+  
+  <property name="compiler.args.streamer" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="streamer.output.dir" value="${module.streamer.basedir}/target/classes"/>
+  <property name="streamer.testoutput.dir" value="${module.streamer.basedir}/target/test-classes"/>
+  
+  <path id="streamer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+
+
+  <patternset id="excluded.from.module.streamer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.streamer">
+    <patternset refid="excluded.from.module.streamer"/>
+  </patternset>
+  
+  <path id="streamer.module.sourcepath">
+    <dirset dir="${module.streamer.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+
+  <target name="clean.module.streamer" description="cleanup module">
+    <delete dir="${streamer.output.dir}"/>
+    <delete dir="${streamer.testoutput.dir}"/>
+  </target>
+</project>
