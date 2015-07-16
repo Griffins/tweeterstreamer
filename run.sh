@@ -1,5 +1,4 @@
-cd out/artifacts/streamer_jar/
+cd target
 
-java -cp  "./*" com.dataspawn.twitterstreamer.Main > /dev/null
+java -jar streame*with-depe*.jar > /dev/null
 
-echo "Server Started!"
