@@ -23,7 +23,6 @@ public class MongoStore implements Store {
         tweets = db.getCollection("tweets");
     }
 
-    @Override
     public void add(String tweet) throws IOException {
         DBObject dbtweet = (DBObject) JSON.parse(tweet);
         tweets.insert(dbtweet);

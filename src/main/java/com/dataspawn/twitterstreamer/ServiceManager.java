@@ -9,6 +9,7 @@ public class ServiceManager {
             return false;
         }
         task.stop();
+        task = null;
         return true;
     }
 
@@ -18,6 +19,7 @@ public class ServiceManager {
         }
 
         task.start();
+
         return true;
     }
 
@@ -41,7 +43,9 @@ public class ServiceManager {
         if (task == null) {
             return false;
         }
+        Settings.getStreamer().stop();
         task.stop();
+        task = null;
         return true;
     }
 

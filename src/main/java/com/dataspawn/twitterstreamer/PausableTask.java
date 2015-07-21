@@ -15,32 +15,35 @@ public abstract class PausableTask implements Runnable {
 
     abstract boolean task();
 
-    @Override
-    public void run() {
-        while (!Thread.currentThread().interrupted()) {
-            if (!task()) {
+    boolean runnable = true;
 
+    public void run() {
+        while (!Thread.currentThread().interrupted() && runnable) {
+            if (task()) {
+                System.out.println("Restarting streaming job");
             }
+
         }
     }
 
     public void start() {
-
+        runnable = true;
         publisher = executor.submit(this);
     }
 
     public void pause() {
-
+        runnable = false;
         Thread.currentThread().interrupt();
         publisher.cancel(true);
     }
 
     public void resume() {
-        Thread.currentThread().start();
+        runnable = true;
         start();
     }
 
     public void stop() {
+        runnable = false;
         Thread.currentThread().interrupt();
         executor.shutdownNow();
     }

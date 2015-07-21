@@ -31,15 +31,38 @@ import java.util.concurrent.TimeUnit;
 
 public class Streamer {
 
-    static BasicClient client;
-    private static Store mStore;
-    static String consumerKey, consumerSecret, token, secret;
-    private static List<String> terms = new ArrayList<String>();
-    static BlockingQueue<String> queue;
+    BasicClient client;
+    private Store mStore;
+    String consumerKey, consumerSecret, token, secret;
+    private List<String> terms = new ArrayList<String>();
+    private StatusesFilterEndpoint endpoint;
 
-    public static void init(String cKey, String cSecret, String mtoken, String msecret, Store store) throws InterruptedException {
+    public void setConsumerKey(String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
 
-        queue = new LinkedBlockingQueue<String>(1000);
+    public void setStore(Store mStore) {
+        this.mStore = mStore;
+    }
+
+    public void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public void setTerms(List<String> terms) {
+        this.terms = terms;
+    }
+
+
+    public void init(String cKey, String cSecret, String mtoken, String msecret, Store store) throws InterruptedException {
 
         //init system
         consumerKey = cKey;
@@ -50,14 +73,36 @@ public class Streamer {
 
     }
 
-    public static boolean run() {
-        if (client == null) {
-            return false;
-        }
+    public boolean run() {
+        System.out.println("Thread is interrupted:" + Thread.currentThread().isInterrupted());
+        Authentication auth;
+
+        BlockingQueue<String> queue;
+
+        queue = new LinkedBlockingQueue<String>(10000);
+        endpoint = new StatusesFilterEndpoint();
+
+        endpoint.trackTerms(terms);
+
+        //endpoint.locations(locations);
+
+
+        //Authentication auth = new com.twitter.hbc.httpclient.auth.BasicAuth(username, password);
+        auth = new OAuth1(consumerKey, consumerSecret, token, secret);
+
+        client = new ClientBuilder()
+                .name("Streamer Client")
+                .hosts(Constants.STREAM_HOST)
+                .endpoint(endpoint)
+                .authentication(auth)
+                .processor(new StringDelimitedProcessor(queue))
+                .build();
+
         client.connect();
         try {
             ArrayList<String> tweets = new ArrayList<String>();
-            for (Long msgRead = 0L; msgRead < 10000L; msgRead++) {
+            Long msgRead = 0L;
+            for (msgRead = 0L; msgRead < 1000L; msgRead++) {
                 if (client.isDone()) {
                     System.out.println("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
                     break;
@@ -68,13 +113,12 @@ public class Streamer {
                     System.out.println("Did not receive a message in 5 seconds");
                 } else {
                     if (Thread.interrupted()) {
-                        client.stop();
-                        return false;
+                        throw new InterruptedException();
                     }
                     try {
                         JSONObject tweet = new JSONObject(msg);
                         mStore.add(tweet.toString(4));
-                      //  System.out.println(tweet.getString("text"));
+                        System.out.println(msg);
                     } catch (IOException e) {
                         System.out.println("Tweet Store failed: " + e.getMessage());
                         return false;
@@ -83,20 +127,21 @@ public class Streamer {
                 }
             }
 
-
+            System.out.println("Streamer read: " + msgRead);
             client.stop();
 
         } catch (Exception e) {
-            System.out.print("Caught interupt exception when reading tweets");
+            System.out.print("Caught exception when reading tweets");
+            // Print some stats
+            System.out.printf("The client read %d messages!\n", client.getStatsTracker().getNumMessages());
+            return false;
         }
         // Print some stats
-        System.out.printf("The client read %d messages!\n", client.getStatsTracker().getNumMessages()
-
-        );
+        System.out.printf("The client read %d messages!\n", client.getStatsTracker().getNumMessages());
         return true;
     }
 
-    private static boolean hasTerm(String term) {
+    private boolean hasTerm(String term) {
 
         for (String mTerm : terms) {
 
@@ -108,12 +153,8 @@ public class Streamer {
         return false;
     }
 
-    public static void addTerms(List<String> new_terms, List new_locations) {
+    public void addTerms(List<String> new_terms, List new_locations) {
 
-        // Define our endpoint: By default, delimited=length is set (we need this for our processor)
-
-        // and stall warnings are on.
-        StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
         for (String term : new_terms) {
 
             if (!hasTerm(term)) {
@@ -121,28 +162,13 @@ public class Streamer {
             }
         }
 
-        endpoint.trackTerms(terms);
-
-        //endpoint.locations(locations);
-        endpoint.stallWarnings(false);
-
-
-        //Authentication auth = new com.twitter.hbc.httpclient.auth.BasicAuth(username, password);
-
-        Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
-
         // Create a new BasicClient. By default gzip is enabled.
-        if (auth == null) {
-            System.out.println("auth null");
-            return;
+        if (client != null) {
+            client.stop();
         }
-        client = new ClientBuilder()
-                .name("Streamer Client")
-                .hosts(Constants.STREAM_HOST)
-                .endpoint(endpoint)
-                .authentication(auth)
-                .processor(new StringDelimitedProcessor(queue))
-                .build();
+    }
 
+    public void stop() {
+        client.stop();
     }
 }

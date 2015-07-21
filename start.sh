@@ -1,5 +1,5 @@
 echo "Attempting to start Streamer"
-curl localhost:8081?command_type=3
+curl localhost:8082?command_type=3
 terms=""
 while true; do
     read -p "Enter track term , or done : " term
@@ -12,4 +12,4 @@ done
 
 echo "Attempting to start server with entered terms"
 uri="command_type=6&terms=$terms"
-curl localhost:8081?$uri
+curl localhost:8082?$uri
